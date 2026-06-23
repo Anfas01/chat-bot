@@ -1,0 +1,30 @@
+/* Container for the entire chat window */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 600px;
+  height: 80vh;
+  margin: 2rem auto;
+  border-radius: 16px;
+  background-color: #f7f9fb;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Scrollable message area */
+.messages-list {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  scrollbar-width: none; 
+  -ms-overflow-style: none;  
+}
+
+.messages-list::-webkit-scrollbar {
+  display: none;
+}
