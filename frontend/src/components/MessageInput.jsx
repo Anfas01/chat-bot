@@ -5,6 +5,9 @@ function MessageInput({ setMessages }) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  // Fallback to localhost if the VITE_BACKEND_URL environment variable isn't found
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -21,8 +24,8 @@ function MessageInput({ setMessages }) {
     setMessages(prevMessages => [...prevMessages, userMessage]);
 
     try {
-      // Hit your local proxy server instead of Google directly
-      const response = await fetch("http://localhost:5000/api/chat", {
+      // Dynamically targeting your live backend server URL
+      const response = await fetch(`${BACKEND_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: currentInput }), 
@@ -42,7 +45,6 @@ function MessageInput({ setMessages }) {
     } catch (error) {
       console.error("Chat Error:", error);
       
-      // ✅ Added fallback message so the user knows if the server is down
       const errorMessage = {
         id: Date.now() + 1,
         text: "Sorry, I can't reach the server right now. Make sure your backend is running!",
