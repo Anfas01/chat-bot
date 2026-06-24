@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react"; // 1. Added useRef here
 import MessageInput from "./components/MessageInput";
-import "./ChatBot.css";
 
 function ChatBot() {
   const [messages, setMessages] = useState([
