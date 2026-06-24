@@ -7,10 +7,11 @@
   height: 80vh;
   margin: 2rem auto;
   border-radius: 16px;
-  background-color: #f7f9fb;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  background-color: #121212; /* Dark theme background */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Darker shadow */
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  border: 1px solid #222;
 }
 
 /* Scrollable message area */
@@ -21,10 +22,103 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  -webkit-overflow-scrolling: touch; /* Smooth mobile momentum scroll */
+  
+  /* Hides scrollbars */
   scrollbar-width: none; 
   -ms-overflow-style: none;  
 }
 
 .messages-list::-webkit-scrollbar {
   display: none;
+}
+
+/* Individual Message Bubbles */
+.message {
+  max-width: 75%;
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* User message styles (Aligned Right) */
+.message.user {
+  align-self: flex-end;
+  background-color: #007aff;
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+/* Bot message styles (Aligned Left) */
+.message.bot {
+  align-self: flex-start;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border-bottom-left-radius: 4px;
+  border: 1px solid #2a2a2a;
+}
+
+/* Input area wrapper at the bottom */
+.message-input {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: #181818;
+  border-top: 1px solid #2a2a2a;
+}
+
+/* Input field */
+.message-input input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background-color: #252525;
+  color: #ffffff;
+  border: 1px solid #333333;
+  border-radius: 24px;
+  font-size: 1rem; /* Stops iOS from forcefully zooming in on tap */
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.message-input input:focus {
+  border-color: #007aff;
+  background-color: #2a2a2a;
+}
+
+/* Send button */
+.message-input button {
+  padding: 0.75rem 1.25rem;
+  background-color: #007aff;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  -webkit-appearance: none;
+}
+
+.message-input button:hover,
+.message-input button:active {
+  background-color: #0056b3;
+}
+
+/* 📱 MOBILE OPTIMIZATION OVERRIDES */
+@media (max-width: 600px) {
+  .chat-container {
+    margin: 0;
+    height: 100vh;
+    height: -webkit-fill-available; /* Fixes browser toolbar height bugs on iOS/Android */
+    max-width: 100%;
+    border-radius: 0;
+    border: none;
+  }
+  
+  .message-input {
+    /* Adds safety margin for bottom home indicator bars on modern phones */
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
 }
