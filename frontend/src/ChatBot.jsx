@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react"; // 1. Added useRef here
 import MessageInput from "./components/MessageInput";
 import "./ChatBot.css";
 
@@ -6,6 +6,14 @@ function ChatBot() {
   const [messages, setMessages] = useState([
     { id: 1, text: "Hello, how can I help you today?", sender: "bot" }
   ]);
+
+  // 2. Create the reference anchor
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    // 3. Scroll to the empty div whenever messages array updates
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
   
   return (
     <div className="chat-container">
@@ -18,9 +26,10 @@ function ChatBot() {
             {message.text}
           </div>
         ))}
+        
+        <div ref={messagesEndRef} />
       </div>
 
-      {/* This line MUST look like this 👇 */}
       <MessageInput setMessages={setMessages} />
     </div>
   );
