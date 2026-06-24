@@ -22,6 +22,10 @@ body,
   overscroll-behavior: none;
 }
 
+body {
+  margin-bottom: 50px;
+}
+
 /* ==========================================
    CHAT CONTAINER
 ========================================== */
